@@ -50,7 +50,7 @@ def call_ocr_api(file_content: bytes, filename: str) -> Optional[str]:
         files = {'file': (ocr_request.filename, ocr_request.file_content, ocr_request.mime_type)}
         headers = get_auth_headers()
         
-        response = requests.post(OCR_ENDPOINT, files=files, headers=headers, timeout=30)
+        response = requests.post(OCR_ENDPOINT, files=files, headers=headers, timeout=300)
         
         if response.status_code == 200:
             try:
@@ -109,7 +109,7 @@ def call_process_api(text: str) -> Optional[ProcessTextResponse]:
             PROCESS_ENDPOINT, 
             json=process_request.dict(), 
             headers=headers, 
-            timeout=30
+            timeout=300
         )
         
         if response.status_code == 200:
