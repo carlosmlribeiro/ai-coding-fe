@@ -152,21 +152,21 @@ def show_previous_requests_page():
                                         if 'diagnoses' in request.output_data:
                                             st.write(f"**Diagnoses:** {len(request.output_data.get('diagnoses', []))}")
                                             for diag_idx, diagnosis in enumerate(request.output_data.get('diagnoses', [])):
-                                                with st.expander(f"Diagnosis {diag_idx + 1}: {diagnosis.get('original_text', 'Unknown')[:30]}..."):
-                                                    st.write(f"**Original:** {diagnosis.get('original_text', 'N/A')}")
-                                                    st.write(f"**English:** {diagnosis.get('english_translation', 'N/A')}")
-                                                    st.write(f"**ICD10:** {diagnosis.get('icd10_code', 'N/A')}")
-                                                    st.write(f"**Confidence:** {diagnosis.get('confidence', 'N/A')}")
+                                                with st.expander(f"Diagnosis {diag_idx + 1}: {diagnosis.get('text', 'Unknown')[:30]}..."):
+                                                    icd10 = diagnosis.get('icd10_code', '')
+                                                    document = diagnosis.get('document', '')
+                                                    st.write(f"**Code:** {icd10} - {document}")
+                                                    if diagnosis.get('pna') is True:
+                                                        st.write("**PNA:** ✅")
                                         
                                         # Show procedures if available
                                         if 'procedures' in request.output_data:
                                             st.write(f"**Procedures:** {len(request.output_data.get('procedures', []))}")
                                             for proc_idx, procedure in enumerate(request.output_data.get('procedures', [])):
-                                                with st.expander(f"Procedure {proc_idx + 1}: {procedure.get('original_text', 'Unknown')[:30]}..."):
-                                                    st.write(f"**Original:** {procedure.get('original_text', 'N/A')}")
-                                                    st.write(f"**English:** {procedure.get('english_translation', 'N/A')}")
-                                                    st.write(f"**ICD10:** {procedure.get('icd10_code', 'N/A')}")
-                                                    st.write(f"**Confidence:** {procedure.get('confidence', 'N/A')}")
+                                                with st.expander(f"Procedure {proc_idx + 1}: {procedure.get('text', 'Unknown')[:30]}..."):
+                                                    icd10 = procedure.get('icd10_code', '')
+                                                    document = procedure.get('document', '')
+                                                    st.write(f"**Code:** {icd10} - {document}")
                                         
                                         # Show raw JSON if no structured data
                                         if 'diagnoses' not in request.output_data and 'procedures' not in request.output_data:
@@ -185,21 +185,23 @@ def show_previous_requests_page():
                                     if 'diagnoses' in request.approved_output:
                                         st.write(f"**Approved Diagnoses:** {len(request.approved_output.get('diagnoses', []))}")
                                         for diag_idx, diagnosis in enumerate(request.approved_output.get('diagnoses', [])):
-                                            with st.expander(f"Approved Diagnosis {diag_idx + 1}: {diagnosis.get('original_text', 'Unknown')[:30]}..."):
-                                                st.write(f"**Original:** {diagnosis.get('original_text', 'N/A')}")
-                                                st.write(f"**English:** {diagnosis.get('english_translation', 'N/A')}")
-                                                st.write(f"**ICD10:** {diagnosis.get('icd10_code', 'N/A')}")
-                                                st.write(f"**Confidence:** {diagnosis.get('confidence', 'N/A')}")
+                                            with st.expander(f"Approved Diagnosis {diag_idx + 1}: {diagnosis.get('text', 'Unknown')[:30]}..."):
+                                                st.write(f"**Original Text:** {diagnosis.get('text', 'N/A')}")
+                                                icd10 = diagnosis.get('icd10_code', '')
+                                                document = diagnosis.get('document', '')
+                                                st.write(f"**Code:** {icd10} - {document}")
+                                                if diagnosis.get('pna') is True:
+                                                    st.write("**PNA:** ✅")
                                     
                                     # Show approved procedures if available
                                     if 'procedures' in request.approved_output:
                                         st.write(f"**Approved Procedures:** {len(request.approved_output.get('procedures', []))}")
                                         for proc_idx, procedure in enumerate(request.approved_output.get('procedures', [])):
-                                            with st.expander(f"Approved Procedure {proc_idx + 1}: {procedure.get('original_text', 'Unknown')[:30]}..."):
-                                                st.write(f"**Original:** {procedure.get('original_text', 'N/A')}")
-                                                st.write(f"**English:** {procedure.get('english_translation', 'N/A')}")
-                                                st.write(f"**ICD10:** {procedure.get('icd10_code', 'N/A')}")
-                                                st.write(f"**Confidence:** {procedure.get('confidence', 'N/A')}")
+                                            with st.expander(f"Approved Procedure {proc_idx + 1}: {procedure.get('text', 'Unknown')[:30]}..."):
+                                                st.write(f"**Original Text:** {procedure.get('text', 'N/A')}")
+                                                icd10 = procedure.get('icd10_code', '')
+                                                document = procedure.get('document', '')
+                                                st.write(f"**Code:** {icd10} - {document}")
                                     
                                     # Show raw JSON if no structured data
                                     if 'diagnoses' not in request.approved_output and 'procedures' not in request.approved_output:
