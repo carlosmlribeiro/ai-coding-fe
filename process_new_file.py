@@ -6,7 +6,7 @@ from pydantic import ValidationError
 from models import OCRRequest, OCRResponse, ProcessTextRequest, ProcessTextResponse, APIError
 
 # Configuration
-GCP_BASE_URL = os.getenv('GCP_BASE_URL', "https://europe-west1-doctor-ai-464910.cloudfunctions.net/ai-icd10-core")
+GCP_BASE_URL = os.getenv('GCP_BASE_URL', "http://127.0.0.1:8088")
 OCR_ENDPOINT = f"{GCP_BASE_URL}/ocr/scan"
 PROCESS_ENDPOINT = f"{GCP_BASE_URL}/code/create"
 AUTH_TOKEN = os.getenv('API_AUTH_TOKEN')

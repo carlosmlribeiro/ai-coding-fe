@@ -131,13 +131,8 @@ def show_previous_requests_page():
                                 if request.input_data:
                                     # Display input text if available
                                     if isinstance(request.input_data, dict) and 'text' in request.input_data:
-                                        st.text_area(
-                                            "Input Text:",
-                                            value=request.input_data.get('text', ''),
-                                            height=200,
-                                            disabled=True,
-                                            key=f"input_text_{idx}"
-                                        )
+                                        st.write("**Input Text:**")
+                                        st.write(request.input_data.get('text', ''))
                                     else:
                                         st.json(request.input_data)
                                 else:
