@@ -147,7 +147,8 @@ def show_previous_requests_page():
                                         if 'diagnoses' in request.output_data:
                                             st.write(f"**Diagnoses:** {len(request.output_data.get('diagnoses', []))}")
                                             for diag_idx, diagnosis in enumerate(request.output_data.get('diagnoses', [])):
-                                                with st.expander(f"Diagnosis {diag_idx + 1}: {diagnosis.get('text', 'Unknown')[:30]}..."):
+                                                main_prefix = "MAIN " if diagnosis.get('is_main_diagnosis') is True else ""
+                                                with st.expander(f"{main_prefix}Diagnosis {diag_idx + 1}: {diagnosis.get('text', 'Unknown')[:30]}..."):
                                                     icd10 = diagnosis.get('icd10_code', '')
                                                     document = diagnosis.get('document', '')
                                                     st.write(f"**Code:** {icd10} - {document}")
