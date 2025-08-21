@@ -3,7 +3,10 @@ import requests
 from typing import Optional
 import os
 from pydantic import ValidationError
+from dotenv import load_dotenv
 from models import RequestsListResponse, RequestData, APIError
+
+load_dotenv()
 
 # Configuration
 GCP_BASE_URL = os.getenv('GCP_BASE_URL', "http://127.0.0.1:8088")
